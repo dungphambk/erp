@@ -43,6 +43,7 @@ class AccountMoveLine(models.Model):
     )
     company_id = fields.Many2one(
         related='move_id.company_id', store=True, readonly=True, precompute=True,
+        index=True,
     )
     company_currency_id = fields.Many2one(
         string='Company Currency',
@@ -70,6 +71,7 @@ class AccountMoveLine(models.Model):
         help="Utility field to express whether the journal item is subject to storno accounting",
     )
     sequence = fields.Integer(compute='_compute_sequence', store=True, readonly=False, precompute=True)
+    move_type = fields.Selection(related='move_id.move_type')
 
     # === Accountable fields === #
     account_id = fields.Many2one(
@@ -1326,10 +1328,10 @@ class AccountMoveLine(models.Model):
         def existing():
             return {
                 line: {
-                    'amount_currency': line.amount_currency,
-                    'balance': line.balance,
+                    'amount_currency': line.currency_id.round(line.amount_currency),
+                    'balance': line.company_id.currency_id.round(line.balance),
                     'currency_rate': line.currency_rate,
-                    'price_subtotal': line.price_subtotal,
+                    'price_subtotal': line.currency_id.round(line.price_subtotal),
                     'move_type': line.move_id.move_type,
                 } for line in container['records'].with_context(
                     skip_sync_invoice=True,
@@ -1355,12 +1357,11 @@ class AccountMoveLine(models.Model):
 
         after = existing()
         for line in after:
-            balance = line.company_id.currency_id.round(line.amount_currency / line.currency_rate)
-
             if (
                 (changed('amount_currency') or changed('currency_rate') or changed('move_type'))
                 and (not changed('balance') or (line not in before and not line.balance))
             ):
+                balance = line.company_id.currency_id.round(line.amount_currency / line.currency_rate)
                 line.balance = balance
         # Since this method is called during the sync, inside of `create`/`write`, these fields
         # already have been computed and marked as so. But this method should re-trigger it since
@@ -2347,7 +2348,8 @@ class AccountMoveLine(models.Model):
                         'account': line.account_id.id,
                         'business_domain': line.move_id.move_type in ['out_invoice', 'out_refund', 'out_receipt'] and 'invoice'
                                            or line.move_id.move_type in ['in_invoice', 'in_refund', 'in_receipt'] and 'bill'
-                                           or 'general'
+                                           or 'general',
+                        'company_id': self.company_id.id,
                         }) if plan['applicability'] == 'mandatory']
             if not mandatory_plans_ids:
                 continue
@@ -2526,7 +2528,7 @@ class AccountMoveLine(models.Model):
         """
         tax_fnames = ['balance', 'tax_line_id', 'tax_ids', 'tax_tag_ids']
         fiscal_fnames = tax_fnames + ['account_id', 'journal_id', 'amount_currency', 'currency_id', 'partner_id']
-        reconciliation_fnames = ['account_id', 'date', 'balance', 'amount_currency', 'currency_id']
+        reconciliation_fnames = ['account_id', 'date', 'balance', 'amount_currency', 'currency_id', 'partner_id']
         return {
             'tax': tax_fnames,
             'fiscal': fiscal_fnames,

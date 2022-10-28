@@ -1140,7 +1140,7 @@
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                     <div class="oe_title pe-0">
                         <h1 class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex">
+                            <div class="d-flex w-100">
                                 <field name="priority" widget="priority" class="me-3"/>
                                 <field name="name" class="o_task_name text-truncate" placeholder="Task Title..."/>
                             </div>
@@ -1179,7 +1179,7 @@
                         </group>
                     </group>
                     <field attrs="{'invisible': [('project_id', '=', False)]}"
-                        name="task_properties" nolabel="1" columns="2"/>
+                        name="task_properties" nolabel="1" columns="2" hideKanbanOption="1"/>
                     <notebook>
                         <page name="description_page" string="Description">
                             <field name="description" type="html" options="{'collaborative': true, 'resizable': false}" placeholder="Task description..."/>
