@@ -215,7 +215,8 @@
                 <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale" data-hotkey="g"/>
                 <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
                 <button name="action_draft" states="cancel" type="object" string="Set to Quotation" data-hotkey="w"/>
-                <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale"/>
+                <button name="action_test" type="object" string="Test Button" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale,done,cancel"/>
             </header>
             <div groups="account.group_account_invoice,account.group_account_readonly"
                  class="alert alert-warning mb-0" role="alert"
@@ -516,7 +517,7 @@
                                 <field name="invoice_status" invisible="1"/>
                                 <field name="currency_id" invisible="1"/>
                                 <field name="price_tax" invisible="1"/>
-                                <field name="company_id" invisible="1"/>
+                                <field name="company_id"/>
                             </tree>
                             <kanban class="o_kanban_mobile">
                                 <field name="name"/>
