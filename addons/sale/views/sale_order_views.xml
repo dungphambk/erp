@@ -148,10 +148,10 @@
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
                 <field name="create_date" string="Creation Date" widget="date" optional="show"/>
                 <field name="commitment_date" widget="date" optional="hide"/>
-                <field name="expected_date" widget="date" optional="hide"/>
+                <field name="expected_date" widget="date" optional="show"/>
                 <field name="partner_id" readonly="1"/>
                 <field name="user_id" widget="many2one_avatar_user" optional="show"/>
-                <field name="activity_ids" widget="list_activity" optional="show"/>
+                <field name="activity_ids" widget="list_activity" optional="hide"/>
                 <field name="team_id" optional="hide"/>
                 <field name="tag_ids" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
@@ -215,7 +215,7 @@
                 <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale" data-hotkey="g"/>
                 <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
                 <button name="action_draft" states="cancel" type="object" string="Set to Quotation" data-hotkey="w"/>
-                <button name="action_test" type="object" string="Test Button" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+                <button name="action_test" type="object" string="Test Button" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale,done,cancel"/>
             </header>
             <div groups="account.group_account_invoice,account.group_account_readonly"
