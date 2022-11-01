@@ -215,7 +215,7 @@
                 <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale" data-hotkey="g"/>
                 <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
                 <button name="action_draft" states="cancel" type="object" string="Set to Quotation" data-hotkey="w"/>
-                <button name="action_test" type="object" string="Test Button" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                <button name="action_ocr" type="object" string="OCR" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale,done,cancel"/>
             </header>
             <div groups="account.group_account_invoice,account.group_account_readonly"
@@ -699,17 +699,18 @@
                     and then they can be searched from the page listing the sale order lines related to a product (from the product itself).
                 -->
                 <filter string="My Orders" domain="[('user_id', '=', uid)]" name="my_sale_orders_filter"/>
-                <filter invisible="1" string="Late Activities" name="activities_overdue"
+                <filter string="Late Activities" name="activities_overdue"
                     domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
                     help="Show all records which has next action date is before today"/>
-                <filter invisible="1" string="Today Activities" name="activities_today"
+                <filter string="Today Activities" name="activities_today"
                     domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
-                <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                <filter string="Future Activities" name="activities_upcoming_all"
                     domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
                 <group expand="0" string="Group By">
                     <filter string="Salesperson" name="salesperson" domain="[]" context="{'group_by': 'user_id'}"/>
                     <filter name="customer" string="Customer" domain="[]" context="{'group_by': 'partner_id'}"/>
                     <filter string="Order Date" name="order_month" domain="[]" context="{'group_by': 'date_order'}"/>
+                    <filter string="State" name="state" domain="[]" context="{'group_by': 'state'}"/>
                 </group>
             </search>
         </field>
