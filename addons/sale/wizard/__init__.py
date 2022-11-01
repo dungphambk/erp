@@ -7,3 +7,4 @@ from . import payment_provider_onboarding_wizard
 from . import payment_link_wizard
 from . import sale_make_invoice_advance
 from . import sale_order_cancel
+from . import sale_order_ocr

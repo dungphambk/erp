@@ -215,7 +215,7 @@
                 <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale" data-hotkey="g"/>
                 <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
                 <button name="action_draft" states="cancel" type="object" string="Set to Quotation" data-hotkey="w"/>
-                <button name="action_ocr" type="object" string="OCR" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                <button name="%(sale.import_from_ocr_wizard)d" type="action" string="OCR" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale,done,cancel"/>
             </header>
             <div groups="account.group_account_invoice,account.group_account_readonly"
