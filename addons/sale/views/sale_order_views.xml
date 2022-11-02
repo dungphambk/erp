@@ -112,6 +112,10 @@
             <tree string="Sales Orders" sample="1"
                 decoration-info="invoice_status == 'to invoice'"
                 decoration-muted="state == 'cancel'">
+                <header>
+                    <button name="action_import" string="Import" type="object"/>
+                    <button name="action_export" string="Export" class="oe_highlight" type="object"/>
+                </header>
                 <field name="message_needaction" invisible="1"/>
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
                 <field name="date_order" string="Order Date" widget="date" optional="show"/>
@@ -144,7 +148,12 @@
         <field name="arch" type="xml">
             <tree string="Quotation" class="o_sale_order" sample="1"
                 decoration-info="state in ['draft', 'sent']"
-                decoration-muted="state == 'cancel'">
+                decoration-muted="state == 'cancel'"
+                export_xlsx="0">
+                <header>
+                    <button name="action_import" string="Import" type="object"/>
+                    <button name="action_export" string="Export" class="oe_highlight" type="object"/>
+                </header>
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
                 <field name="create_date" string="Creation Date" widget="date" optional="show"/>
                 <field name="commitment_date" widget="date" optional="hide"/>
@@ -215,7 +224,7 @@
                 <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale" data-hotkey="g"/>
                 <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
                 <button name="action_draft" states="cancel" type="object" string="Set to Quotation" data-hotkey="w"/>
-                <button name="%(sale.import_from_ocr_wizard)d" type="action" string="OCR" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                <button name="%(sale.import_from_ocr_wizard)d" type="action" string="OCR"/>
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale,done,cancel"/>
             </header>
             <div groups="account.group_account_invoice,account.group_account_readonly"
@@ -654,11 +663,11 @@
                     </page>
                 </notebook>
             </sheet>
-            <div class="oe_chatter">
+            <!-- <div class="oe_chatter">
                 <field name="message_follower_ids"/>
                 <field name="activity_ids"/>
                 <field name="message_ids"/>
-            </div>
+            </div> -->
             </form>
         </field>
     </record>

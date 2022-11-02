@@ -956,8 +956,13 @@ class SaleOrder(models.Model):
         lines_to_recompute.discount = 0.0
         lines_to_recompute._compute_discount()
         self.show_update_pricelist = False
-
     
+    def action_import(self):
+        return
+    
+    def action_export(self):
+        return
+
     # INVOICING #
 
     def _prepare_invoice(self):
