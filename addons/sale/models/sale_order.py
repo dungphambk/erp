@@ -14,12 +14,6 @@ from odoo.tools.sql import create_index
 
 from odoo.addons.payment import utils as payment_utils
 
-from PIL import Image
-import pytesseract
-
-# If you don't have tesseract executable in your PATH, include the following:
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
-
 READONLY_FIELD_STATES = {
     state: [('readonly', True)]
     for state in {'sale', 'done', 'cancel'}

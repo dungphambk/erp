@@ -113,8 +113,9 @@
                 decoration-info="invoice_status == 'to invoice'"
                 decoration-muted="state == 'cancel'">
                 <header>
+                    <button name="%(sale.import_from_ocr_wizard)d" type="action" string="Create via OCR" />
                     <button name="action_import" string="Import" type="object"/>
-                    <button name="action_export" string="Export" class="oe_highlight" type="object"/>
+                    <button name="action_export" string="Export" type="object"/>
                 </header>
                 <field name="message_needaction" invisible="1"/>
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
@@ -146,14 +147,15 @@
         <field name="model">sale.order</field>
         <field name="priority">4</field>
         <field name="arch" type="xml">
+            <header>
+                <button name="%(sale.import_from_ocr_wizard)d" type="action" string="Create via OCR" />
+                <button name="action_import" string="Import" type="object"/>
+                <button name="action_export" string="Export" type="object"/>
+            </header>
             <tree string="Quotation" class="o_sale_order" sample="1"
                 decoration-info="state in ['draft', 'sent']"
                 decoration-muted="state == 'cancel'"
                 export_xlsx="0">
-                <header>
-                    <button name="action_import" string="Import" type="object"/>
-                    <button name="action_export" string="Export" class="oe_highlight" type="object"/>
-                </header>
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
                 <field name="create_date" string="Creation Date" widget="date" optional="show"/>
                 <field name="commitment_date" widget="date" optional="hide"/>
@@ -224,7 +226,7 @@
                 <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale" data-hotkey="g"/>
                 <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
                 <button name="action_draft" states="cancel" type="object" string="Set to Quotation" data-hotkey="w"/>
-                <button name="%(sale.import_from_ocr_wizard)d" type="action" string="OCR"/>
+                <button name="%(sale.import_from_ocr_wizard)d" type="action" string="OCR" states ="draft"/>
                 <field name="state" widget="statusbar" statusbar_visible="draft,sent,sale,done,cancel"/>
             </header>
             <div groups="account.group_account_invoice,account.group_account_readonly"
@@ -395,8 +397,6 @@
                             >
                                 <control>
                                     <create name="add_product_control" string="Add a product"/>
-                                    <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
-                                    <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
                                 </control>
 
                                 <field name="sequence" widget="handle" />
@@ -526,7 +526,7 @@
                                 <field name="invoice_status" invisible="1"/>
                                 <field name="currency_id" invisible="1"/>
                                 <field name="price_tax" invisible="1"/>
-                                <field name="company_id"/>
+                                <field name="company_id" invisible="1"/>
                             </tree>
                             <kanban class="o_kanban_mobile">
                                 <field name="name"/>

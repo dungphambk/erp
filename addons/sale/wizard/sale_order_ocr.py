@@ -9,7 +9,7 @@ from odoo.tools import formataddr
 from base64 import decodebytes
 from PIL import Image
 import pytesseract
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract'
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' #Win/Mac
 
 class SaleOrderOcr(models.TransientModel):
     _name = 'sale.order.ocr'
@@ -21,37 +21,45 @@ class SaleOrderOcr(models.TransientModel):
         self.ensure_one()
         with open("foo.png","wb") as f:
             f.write(decodebytes(self.file))
-        text = pytesseract.image_to_string(Image.open(r'F:\Downloads\ERP\erp\erp\foo.png'))
+        text = pytesseract.image_to_string(Image.open(r'F:\Downloads\ERP\erp\erp\foo.png')) #Win/Mac
+
         print(text)
 
-        # template_id = self.env['ir.model.data']._xmlid_to_res_id(
-        #     'sale.mail_template_sale_cancellation', raise_if_not_found=False
-        # )
-        # lang = self.env.context.get('lang')
-        # template = self.env['mail.template'].browse(template_id)
-        # if template.lang:
-        #     lang = template._render_lang(self.ids)[self.id]
-        # ctx = {
-        #     'default_use_template': bool(template_id),
-        #     'default_template_id': template_id,
-        #     'default_order_id': self.id,
-        #     'mark_so_as_canceled': True,
-        #     'default_email_layout_xmlid': "mail.mail_notification_layout_with_responsible_signature",
-        # }
-        ctx = {
-            'default_partner_id': 'Deco Addict',
-            'default_date_order': '2022-11-02',
-        }
-        try:
-            form_view_id = self.env.ref("sale.view_order_form").id
-        except Exception as e:
-            form_view_id = False
+        name = 'Deco Addict'
+        partner = self.env['res.partner'].search([('name', '=', name)])
+
+        pricelist_days = 'Public Pricelist'
+        pricelist = self.env['product.pricelist'].search([('name', '=', pricelist_days)])
+
+        payment_term = 'End of Following Month'
+        payment = self.env['account.payment.term'].search([('name', '=', payment_term)])
+
+        sale_id = self.env['sale.order'].create(    
+            {'partner_id': partner.id,      
+            'date_order': '2022-11-02',
+            'validity_date': '2022-11-04',
+            'pricelist_id': pricelist.id,
+            'payment_term_id': payment.id,  
+        })
+
+        product_code = ['E-COM06', 'E-COM07']
+        product_qty = [2,3]
+        #product_price = [100,200]
+        for i in range(len(product_code)):
+            product = self.env['product.product'].search([('default_code', '=', product_code[i])])
+            if product.id:
+                self.env['sale.order.line'].create({
+                    'product_id': product.id,
+                    'order_id': sale_id.id,
+                    'product_uom_qty' : product_qty[i], 
+                    #'price_unit': product_price[i],
+                })   
+
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Test',
             'view_mode': 'form',
             'res_model': 'sale.order',
-            'views': [(form_view_id, 'form')],
+            'views': [(self.env.ref("sale.view_order_form").id, 'form')],
+            'res_id': sale_id.id,
             'target': 'current',
-            'context': ctx,
         }
