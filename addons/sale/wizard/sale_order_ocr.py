@@ -5,11 +5,14 @@ from typing_extensions import Required
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import formataddr
+from datetime import datetime
 
 from base64 import decodebytes
 from PIL import Image
+import re
 import pytesseract
-#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' #Win/Mac
+
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' #Win
 
 # import requests
 
@@ -30,45 +33,68 @@ class SaleOrderOcr(models.TransientModel):
     _name = 'sale.order.ocr'
     _description = "Sales Order OCR"
 
-    file = fields.Binary(string ="Image")
+    file = fields.Binary(string ="Image")   
 
     def action_get_text(self):
         self.ensure_one()
         with open("foo.png","wb") as f:
             f.write(decodebytes(self.file))
-        #text = pytesseract.image_to_string(Image.open(r'F:\Downloads\ERP\erp\erp\foo.png')) #Win/Mac
-        text = pytesseract.image_to_string(Image.open(r'/Users/William/Downloads/odoo16/erp/foo.png'))
-        
-        print(text)
+        text = pytesseract.image_to_string(Image.open(r'F:\Downloads\ERP\erp\erp\foo.png')) #Win
+        #text = pytesseract.image_to_string(Image.open(r'/Users/William/Downloads/odoo16/erp/foo.png'))#Mac
 
-        name = 'Deco Addict'
-        partner = self.env['res.partner'].search([('name', '=', name)])
+        text_after_split = list(filter(None, text.split('\n')))
+        customer = ''
+        productsIndex = 0
+        quantityIndex = 0
+        unitPriceIndex = 0
+        taxesIndex = 0
 
-        pricelist_days = 'Public Pricelist'
-        pricelist = self.env['product.pricelist'].search([('name', '=', pricelist_days)])
+        for i in range(len(text_after_split)):
+            if ('Address' in text_after_split[i]): customer = text_after_split[i+1]
+            if ('Products' in text_after_split[i]): productsIndex = i
+            if ('Quantity' in text_after_split[i]): quantityIndex = i
+            if ('Unit Price' in text_after_split[i]): unitPriceIndex = i
+            if ('Tax' in text_after_split[i]): taxesIndex = i
 
-        payment_term = 'End of Following Month'
-        payment = self.env['account.payment.term'].search([('name', '=', payment_term)])
+        customer = customer.split(',')[0]
+
+        product = []
+        for i in text_after_split[productsIndex+1:quantityIndex]:
+            m = re.search('\[(.+?)\]', i)
+            if m: 
+                product.append(m.group(1))
+
+        quantity = []
+        for i in text_after_split[quantityIndex+1:unitPriceIndex]:
+            quantity.append(i.split(' ')[0])
+
+        unitPrice = []
+        for i in text_after_split[unitPriceIndex+1:taxesIndex]:
+            unitPrice.append(i.split(' ')[0])
+
+        partner = self.env['res.partner'].search([('name', '=', customer)])
+
+        # pricelist_days = 'Public Pricelist'
+        # pricelist = self.env['product.pricelist'].search([('name', '=', pricelist_days)])
+
+        # payment_term = 'End of Following Month'
+        # payment = self.env['account.payment.term'].search([('name', '=', payment_term)])
 
         sale_id = self.env['sale.order'].create(    
             {'partner_id': partner.id,      
-            'date_order': '2022-11-02',
-            'validity_date': '2022-11-04',
-            'pricelist_id': pricelist.id,
-            'payment_term_id': payment.id,  
+            'date_order': datetime.now(),
+            #'pricelist_id': pricelist.id,
+            #'payment_term_id': payment.id,  
         })
 
-        product_code = ['E-COM06', 'E-COM07']
-        product_qty = [2,3]
-        #product_price = [100,200]
-        for i in range(len(product_code)):
-            product = self.env['product.product'].search([('default_code', '=', product_code[i])])
-            if product.id:
+        for i in range(len(product)):
+            p = self.env['product.product'].search([('default_code', '=', product[i])])
+            if p.id:
                 self.env['sale.order.line'].create({
-                    'product_id': product.id,
+                    'product_id': p.id,
                     'order_id': sale_id.id,
-                    'product_uom_qty' : product_qty[i], 
-                    #'price_unit': product_price[i],
+                    'product_uom_qty' : quantity[i], 
+                    'price_unit': unitPrice[i],
                 })   
 
         return {
