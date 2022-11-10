@@ -147,15 +147,14 @@
         <field name="model">sale.order</field>
         <field name="priority">4</field>
         <field name="arch" type="xml">
-            <header>
-                <button name="%(sale.import_from_ocr_wizard)d" type="action" string="Create via OCR" />
-                <button name="action_import" string="Import" type="object"/>
-                <button name="action_export" string="Export" type="object"/>
-            </header>
             <tree string="Quotation" class="o_sale_order" sample="1"
                 decoration-info="state in ['draft', 'sent']"
-                decoration-muted="state == 'cancel'"
-                export_xlsx="0">
+                decoration-muted="state == 'cancel'">
+								<header>
+										<button name="%(sale.import_from_ocr_wizard)d" type="action" string="Create via OCR" />
+										<button name="action_import" string="Import" type="object"/>
+										<button name="action_export" string="Export" type="object"/>
+								</header>
                 <field name="name" string="Number" readonly="1" decoration-bf="1"/>
                 <field name="create_date" string="Creation Date" widget="date" optional="show"/>
                 <field name="commitment_date" widget="date" optional="hide"/>

@@ -1,4 +1,4 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
     <t t-extend="ListView.buttons">
         <t t-jquery="div.o_list_buttons" t-operation="append">
@@ -7,9 +7,9 @@
             </button>
         </t>
     </t>
-</templates> -->
+</templates>
 
-<!-- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
  <template xml:space="preserve">
     <t t-extend="ListView.buttons">
         <t t-jquery="button.o_list_button_add" t-operation="replace">
@@ -17,7 +17,7 @@
             <button t-if="widget.modelName != 'sale.order'" class="btn btn-primary o_list_button_add" type="button">CreateN</button>
          </t>
     </t>
- </template> -->
+ </template>
 
  <t t-extend="ListView.buttons">
     <t t-jquery="button.oe_list_add" t-operation="after">

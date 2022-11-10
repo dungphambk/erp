@@ -9,7 +9,7 @@ from odoo.tools import formataddr
 from base64 import decodebytes
 from PIL import Image
 import pytesseract
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' #Win/Mac
+#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' #Win/Mac
 
 class SaleOrderOcr(models.TransientModel):
     _name = 'sale.order.ocr'
@@ -21,8 +21,9 @@ class SaleOrderOcr(models.TransientModel):
         self.ensure_one()
         with open("foo.png","wb") as f:
             f.write(decodebytes(self.file))
-        text = pytesseract.image_to_string(Image.open(r'F:\Downloads\ERP\erp\erp\foo.png')) #Win/Mac
-
+        #text = pytesseract.image_to_string(Image.open(r'F:\Downloads\ERP\erp\erp\foo.png')) #Win/Mac
+        text = pytesseract.image_to_string(Image.open(r'/Users/William/Downloads/odoo16/erp/foo.png'))
+        
         print(text)
 
         name = 'Deco Addict'
