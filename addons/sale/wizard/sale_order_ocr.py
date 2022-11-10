@@ -11,6 +11,21 @@ from PIL import Image
 import pytesseract
 #pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract' #Win/Mac
 
+# import requests
+
+# model_id = '85638d0d-c529-4d6c-887e-0abf0860d36c'
+# api_key = '-7KFB559oxL207NerveYa6NX-Gk-YiJ9'
+
+# url = 'https://app.nanonets.com/api/v2/ObjectDetection/Model/' + model_id + '/LabelFile/'
+
+# print(url)
+
+# data = {'file': open(r'/Users/William/Downloads/odoo16/erp/foo.png', 'rb'),    'modelId': ('', model_id)}
+
+# response = requests.post(url, auth=requests.auth.HTTPBasicAuth(api_key, ''), files=data)
+
+# print(response.text)
+
 class SaleOrderOcr(models.TransientModel):
     _name = 'sale.order.ocr'
     _description = "Sales Order OCR"
