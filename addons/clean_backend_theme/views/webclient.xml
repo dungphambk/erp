@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap" name="Webclient Bootstrap">
+        <xpath expr="//meta[@name='theme-color']" position="replace">
+            <meta name="theme-color" content="#03222f"/>
+        </xpath>
+        <xpath expr="//meta[@name='msapplication-navbutton-color']" position="replace">
+            <meta name="msapplication-navbutton-color" content="#03222f"/>
+        </xpath>
+        <xpath expr="//meta[@name='msapplication-TileColor']" position="replace">
+            <meta name="msapplication-TileColor" content="#03222f"/>
+        </xpath>
+    </template>
+</odoo>

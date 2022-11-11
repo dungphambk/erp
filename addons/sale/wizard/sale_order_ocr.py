@@ -51,7 +51,7 @@ class SaleOrderOcr(models.TransientModel):
 
         for i in range(len(text_after_split)):
             if ('Address' in text_after_split[i]): customer = text_after_split[i+1]
-            if ('Products' in text_after_split[i]): productsIndex = i
+            if ('Products' in text_after_split[i] or 'Description' in text_after_split[i]): productsIndex = i
             if ('Quantity' in text_after_split[i]): quantityIndex = i
             if ('Unit Price' in text_after_split[i]): unitPriceIndex = i
             if ('Tax' in text_after_split[i]): taxesIndex = i
