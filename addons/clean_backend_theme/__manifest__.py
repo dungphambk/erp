@@ -26,6 +26,9 @@
         'views/res_company_views.xml'
     ],
     'assets': {
+        'web.assets_frontend': [
+            'clean_backend_theme/static/src/scss/login.scss',
+        ],
         'web._assets_primary_variables': [
             ('prepend', 'clean_backend_theme/static/src/scss/variable.scss')
         ],

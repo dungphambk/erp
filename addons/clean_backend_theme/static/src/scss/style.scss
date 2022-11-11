@@ -263,7 +263,7 @@ ul.o_menu_sections {
 #sidebar_panel {
     border-left: 0px;
     border-right: 1px solid transparent;
-    border-image: linear-gradient(180deg, rgba(3,34,47,1) 15%, rgba(255,171,0,0.8) 65%, rgba(3,34,47,1) 95%);
+    border-image: linear-gradient(180deg, rgba(3,34,47,1) 15%, #17A2B8 65%, rgba(3,34,47,1) 95%);
     border-image-slice: 1;
 }
 
@@ -286,4 +286,182 @@ ul.o_menu_sections {
 .o_base_settings .o_setting_container .settings_tab {
     background-color: $dx-brand-primary;
 }
+
+// Table
+.table-sm th, .table-sm td {
+    padding: 0.5rem;
+}
+tr.o_data_row {
+    font-size: 15px;
+}
+.o_list_view .table-responsive .table thead tr:nth-child(1) th {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: #ffffff !important;
+}
+th.o_list_record_selector {
+    color: #495057 !important;
+    border-color: #eff2f7 !important;
+    background-color: #f8f9fa !important;
+}
+.table>:not(caption)>*>* {
+    padding: 1rem 1rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    -webkit-box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+.o_list_view .o_list_table thead > tr > th:not(.o_list_record_selector).o_list_number_th {
+    text-align: left !important;
+}
+.o_list_view .o_list_table thead > tr > th:not(.o_list_record_selector) {
+    border-left: none !important;
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: none;
+}
+.table th {
+    border-top: 1px solid #fff !important;
+}
+.o_list_view .o_list_table tfoot {
+    background-color: #fff !important;
+}
+.o_list_view .table-responsive .o_list_table tfoot tr:nth-child(1) td {
+    background-color: #fff !important;
+}
+.o_list_view .o_list_table tr:focus-within,
+.o_list_view .o_list_table.table-striped tr:focus-within {
+    background-color: #fff !important;
+}
+
+//Table end
+
+//Form
+// input {
+//     display: block;
+//     width: 100%;
+//     //height: 40px !important;
+//     //padding: 10px 20px;
+//     font-size: 13px;
+//     font-weight: 400;
+//     line-height: 1.5;
+//     color: #495057;
+//     background-color: #fff;
+//     background-clip: padding-box;
+//     border: 1px solid #ced4da !important;
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     appearance: none;
+//     border-radius: .25rem;
+//     -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+//     transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+//     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+//     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+//     box-shadow: none !important;
+//     margin-bottom:10px !important;
+// }
+.o_field_widget .o_input_dropdown .o_dropdown_button {
+    position: absolute;
+    top: 6px;
+    left: auto;
+    bottom: auto;
+    right: 9px;
+}
+.o_form_view .oe_button_box .btn.oe_stat_button > .o_stat_info .o_stat_value,
+.o_form_view .oe_button_box .btn.oe_stat_button > span .o_stat_value {
+    color: #17A2B8;
+}
+.o_form_view .oe_button_box .oe_stat_button .o_button_icon {
+    color: #17A2B8;
+}
+// Form End
+
+
+// Discuss
+.o_Discuss {
+	padding: 15px !important;
+	background: #f5f5f9 !important;
+}
+
+.o_Discuss .o_DiscussSidebar {
+	background-color: #ffffff !important;
+	color: #17A2B8 !important;
+    border-radius: 5px;
+	margin-right: 10px !important;
+    -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03) !important;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63, .03) !important;
+}
+
+.o_DiscussSidebar_item.o-active {
+    color: #f46a6a !important;
+    font-weight: 500 !important;
+}
+.o_DiscussSidebarItem:hover {
+    background: none !important;
+}
+.o_DiscussSidebarItem {
+    cursor: pointer !important;
+    color: #74788d !important;
+    line-height: 24px !important;
+    padding: 10px 5px !important;
+}
+.o_DiscussSidebarItem_activeIndicator.o-item-active {
+    background: none !important;
+}
+// Discuss End
+
+
+//kanban_view starts
+.o_kanban_view {
+    border-radius: 5px;
+    background: #fff;
+    -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03) !important;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63, .03) !important;
+}
+.o_kanban_view.o_kanban_ungrouped .o_kanban_record {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03) !important;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63, .03) !important;
+}
+.o_kanban_view .o_kanban_group {
+    background: #fff;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.o_kanban_view.o_kanban_grouped {
+    background-color: #f8f8fb;
+}
+.o_kanban_view.o_kanban_grouped .o_kanban_record, .o_kanban_view.o_kanban_grouped .o_kanban_quick_create {
+    border-radius: 5px;
+    margin-bottom: 10px;
+    -webkit-box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03) !important;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63, .03) !important;
+}
+.o_kanban_view.o_kanban_dashboard .o_kanban_record .o_kanban_card_header + .container.o_kanban_card_content .o_kanban_primary_bottom.bottom_block {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: rgba(85,110,230,.25) !important;
+}
+.o_kanban_view .o_kanban_record.o_kanban_record_has_image_fill .o_kanban_image_fill_left {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.o_kanban_record::after {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.o_kanban_quick_create .o_form_view,
+.o_kanban_quick_create .o_action,
+.o_kanban_quick_create .o_content {
+    background: #fff;
+    margin: 0px;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+.o_kanban_view .o_kanban_content .bg-primary {
+    border-radius: 5px 0 0 5px;
+}
+//kanban_view ends
 
