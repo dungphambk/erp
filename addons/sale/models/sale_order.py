@@ -4,6 +4,7 @@
 from datetime import timedelta
 from itertools import groupby
 from markupsafe import Markup
+import datetime
 
 from odoo import api, fields, models, SUPERUSER_ID, _
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -956,7 +957,17 @@ class SaleOrder(models.Model):
     
     def action_export(self):
         return
-
+    
+    def cron_check_overdue(self):
+        orderList = self.env['sale.order'].search([])
+        template_id = self.env.ref('sale.overdue_order_template').id
+        template = self.env['mail.template'].browse(template_id)
+        for order in orderList:
+            #if (order.create_date.date() < datetime.datetime.now().date()) : print(order.create_date.date())
+            if (order.create_date.date() == datetime.datetime.strptime("25/11/2022", '%d/%m/%Y').date()) :
+                if (order.partner_id.email_formatted): 
+                    template.send_mail(order.id, force_send = True)
+                
     # INVOICING #
 
     def _prepare_invoice(self):
