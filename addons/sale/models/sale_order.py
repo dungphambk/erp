@@ -964,9 +964,16 @@ class SaleOrder(models.Model):
         template = self.env['mail.template'].browse(template_id)
         for order in orderList:
             #if (order.create_date.date() < datetime.datetime.now().date()) : print(order.create_date.date())
-            if (order.create_date.date() == datetime.datetime.strptime("25/11/2022", '%d/%m/%Y').date()) :
+            if (order.create_date.date() == datetime.datetime.strptime("08/11/2022", '%d/%m/%Y').date()) :
                 if (order.partner_id.email_formatted): 
                     template.send_mail(order.id, force_send = True)
+                    notification_id = []
+                    notification_id.append(order.partner_id.id)
+                    notification_id.append(3)
+                    record = self.env['sale.order'].browse(order.id)
+                    post_vars = {'subject': "Message subject", 'body': "This order is overdue", 'partner_ids': notification_id,}
+                    record.message_post(type="notification", **post_vars)
+
                 
     # INVOICING #
 
