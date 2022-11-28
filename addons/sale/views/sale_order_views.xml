@@ -138,6 +138,9 @@
                     widget="badge" optional="show"/>
                 <field name="tag_ids" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="state" invisible="1"/>
+								<field name="reminder_time" invisible="1"/>
+								<button name="action_reminder" string="Reminder" type="object" attrs="{'invisible': [('reminder_time', '!=', False)]}"/>
+								<button name="cancel_reminder" string="Cancel Reminder" type="object" attrs="{'invisible': [('reminder_time', '==', False)]}"/>
             </tree>
         </field>
     </record>
@@ -175,6 +178,12 @@
                 <field name="invoice_status" optional="hide"/>
                 <field name="message_needaction" invisible="1"/>
                 <field name="currency_id" invisible="1"/>
+								<field name="reminder_time" invisible="1"/>
+								<field name="important" invisible="1"/>
+								<button name="action_reminder" string="Remind Me" type="object" attrs="{'invisible': [('reminder_time', '!=', False)]}" class="oe_highlight"/>
+								<button name="cancel_reminder" string="Cancel" type="object" attrs="{'invisible': [('reminder_time', '==', False)]}"/>
+								<button name="action_important" string="Important" type="object" attrs="{'invisible': [('important', '!=', False)]}" class="oe_highlight"/>
+								<button name="cancel_important" string="Remove" type="object" attrs="{'invisible': [('important', '==', False)]}"/>
             </tree>
         </field>
     </record>

@@ -32,6 +32,7 @@ This module contains all the common features of Sales Management and eCommerce.
         'data/sale_data.xml',
         'data/ir_cron_check_overdue.xml',
         'data/overdue_template.xml',
+				'data/reminder_template.xml',
 
         'wizard/account_accrued_orders_wizard_views.xml',
         'wizard/payment_link_wizard_views.xml',
