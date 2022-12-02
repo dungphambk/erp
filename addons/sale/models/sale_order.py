@@ -971,32 +971,32 @@ class SaleOrder(models.Model):
 		reminder_template = self.env['mail.template'].browse(reminder_template_id)
 		now = datetime.datetime.now().date()
 		for order in orderList:
-			if (order.expected_date == now):
-			#if (order.create_date.date() == datetime.datetime.strptime("28/11/2022", '%d/%m/%Y').date()) :
+			#if (order.expected_date == now):
+			if (order.create_date.date() == datetime.datetime.strptime("25/11/2022", '%d/%m/%Y').date()) :
 				overdue_template.send_mail(order.id, force_send = True)
 				print("Overdue Notification Has Been Sent For Order", order.name)
-				# notification_id = []
-				# notification_id.append(order.partner_id.id)
-				# notification_id.append(3)
-				# record = self.env['sale.order'].browse(order.id)
-				# post_vars = {'subject': "Message subject", 'body': "This order is overdue", 'partner_ids': notification_id,}
-				# record.message_post(type="notification", **post_vars)
+				message = "Order " + order.name + " is orverdue"
+				channel = self.env['mail.channel'].channel_get([order.user_id.partner_id.id])
+				channel_id = self.env['mail.channel'].browse(channel["id"])
+				channel_id.message_post(
+					body=(message),
+					message_type='comment',
+					subtype_xmlid='mail.mt_comment',
+				)
 			if (order.reminder_time == now):
 				reminder_template.send_mail(order.id, force_send = True)
 				print("Reminder Has Been Sent For Order", order.name)
 				order.write({"reminder_time": False})
 
 	def action_reminder(self): 
-		#time = self.expected_date.date() - datetime.timedelta(1)
-		time = self.expected_date.date()
+		time = self.expected_date.date() - datetime.timedelta(1)
+		#time = self.expected_date.date()
 		self.write({'reminder_time' : time})
 	
 	def cancel_reminder(self):
 		self.write({'reminder_time' : False})
 		
 	def action_important(self): 
-		#time = self.expected_date.date() - datetime.timedelta(1)
-		time = self.expected_date.date()
 		self.write({'important' : True})
 	
 	def cancel_important(self):
