@@ -964,7 +964,7 @@ class SaleOrder(models.Model):
 		return
 	
 	def cron_check_overdue(self):
-		orderList = self.env['sale.order'].search([])
+		orderList = self.env['sale.order'].search([('state', '=', 'sale')])
 		overdue_template_id = self.env.ref('sale.overdue_order_template').id
 		overdue_template = self.env['mail.template'].browse(overdue_template_id)
 		reminder_template_id = self.env.ref('sale.reminder_order_template').id
@@ -972,7 +972,7 @@ class SaleOrder(models.Model):
 		now = datetime.datetime.now().date()
 		for order in orderList:
 			#if (order.expected_date == now):
-			if (order.create_date.date() == datetime.datetime.strptime("25/11/2022", '%d/%m/%Y').date()) :
+			if (order.create_date.date() == datetime.datetime.strptime("03/12/2022", '%d/%m/%Y').date()) :
 				overdue_template.send_mail(order.id, force_send = True)
 				print("Overdue Notification Has Been Sent For Order", order.name)
 				message = "Order " + order.name + " is orverdue"
@@ -987,6 +987,14 @@ class SaleOrder(models.Model):
 				reminder_template.send_mail(order.id, force_send = True)
 				print("Reminder Has Been Sent For Order", order.name)
 				order.write({"reminder_time": False})
+				message = "The expected day of Order " + order.name + " is coming soon."
+				channel = self.env['mail.channel'].channel_get([order.user_id.partner_id.id])
+				channel_id = self.env['mail.channel'].browse(channel["id"])
+				channel_id.message_post(
+					body=(message),
+					message_type='comment',
+					subtype_xmlid='mail.mt_comment',
+				)
 
 	def action_reminder(self): 
 		time = self.expected_date.date() - datetime.timedelta(1)

@@ -4,17 +4,17 @@
     <record id="overdue_order_template" model="mail.template">
         <field name="name">Sales: Order Overdue</field>
         <field name="model_id" ref="sale.model_sale_order" />
-        <field name="email_to">{{ object.partner_id.email_formatted }}, {{ (object.user_id.email_formatted or user.email_formatted) }}</field>
-        <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+				<field name="email_to">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+        <!-- <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field> -->
         <field name="subject">Overdue order {{object.name}}</field>
-        <field name="partner_to">{{ object.partner_id.id }},{{ (object.user_id.id) }}</field>
         <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px; font-size: 13px;">
                 <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                    Dear <t t-out="object.partner_id.name"></t>
+                    Dear <t t-out="object.partner_id.name"></t>,
                     <br/>
                     Order <t t-out="object.name"></t> is overdue.
                     <br/> 
+										BR,
                 </p>
             </div>
         </field>
