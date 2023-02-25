@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="mrp_prediction_search_view" model="ir.ui.view">
+            <field name="name">mrp.prediction.search</field>
+            <field name="model">mrp.prediction</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="product_id"/>
+                    <field name="mo_id"/>
+                    <group expand="0" string="Filters">
+                        <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                        <filter name="done" string="Done" domain="[('state', '=', 'done')]"/>
+                        <filter invisible="1" string="Late Activities" name="activities_overdue"
+                            domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                            help="Show all records which has next action date is before today"/>
+                        <filter invisible="1" string="Today Activities" name="activities_today"
+                            domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                        <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                            domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                    </group>
+                    <group expand='0' string='Group by...'>
+                        <filter string='Product' name="productgroup" context="{'group_by': 'product_id'}"/>
+                        <filter string="Manufacturing Order" name="mogroup" context="{'group_by': 'mo_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="mrp_prediction_form_view" model="ir.ui.view">
+            <field name="name">mrp.prediction.form</field>
+            <field name="model">mrp.prediction</field>
+            <field name="arch" type="xml">
+                <form string="Prediction">
+                    <field name="company_id" invisible="1"/>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" placeholder="Unbuild Order" nolabel="1"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="product_id" attrs="{'readonly':['|', ('mo_id','!=',False), ('state', '=', 'done')]}" force_save="1"/>
+                                <field name="mo_bom_id" invisible="1"/>
+                                <field name="bom_id" attrs="{'required': [('mo_id', '=', False)], 'readonly':['|', ('mo_id','!=',False), ('state', '=', 'done')], 'invisible': [('mo_id', '!=', False), ('mo_bom_id', '=', False)]}" force_save="1"/>
+                                <label for="product_qty"/>
+                                <div class="o_row">
+                                    <field name="product_qty" attrs="{'readonly': ['|', ('has_tracking', '=', 'serial'), ('state', '=', 'done')]}"/>
+                                    <field name="product_uom_id" options="{'no_open': True, 'no_create': True}" groups="uom.group_uom" attrs="{'readonly': ['|', ('mo_id', '!=', False), ('state', '=', 'done')]}" force_save="1"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="mo_id"/>
+                                <field name="location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+                                <field name="location_dest_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+                                <field name="has_tracking" invisible="1"/>
+                                <field name="lot_id" attrs="{'invisible': [('has_tracking', '=', 'none')], 'required': [('has_tracking', '!=', 'none')]}" groups="stock.group_production_lot"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="state" widget='badge' decoration-success="state == 'done'" decoration-info="state == 'draft'"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="mrp_prediction_tree_view" model="ir.ui.view">
+            <field name="name">mrp.prediction.tree</field>
+            <field name="model">mrp.prediction</field>
+            <field name="arch" type="xml">
+                <tree sample="1">
+                    <field name="name" decoration-bf="1"/>
+                    <field name="product_id"/>
+                    <field name="mo_id"/>
+                    <field name="lot_id" groups="stock.group_production_lot"/>
+                    <field name="product_qty"/>
+                    <field name="product_uom_id" groups="uom.group_uom"/>
+                    <field name="location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="state" widget='badge' decoration-success="state == 'done'" decoration-info="state == 'draft'"/>
+                </tree>
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="mrp_prediction">
+        <field name="name">Prediction</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.prediction</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_mrp_prediction"
+          name="Prediction"
+          parent="menu_mrp_manufacturing"
+          action="mrp_prediction"/>
+</odoo>

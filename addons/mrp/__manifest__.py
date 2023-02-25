@@ -29,6 +29,7 @@
         'views/mrp_workorder_views.xml',
         'views/mrp_workcenter_views.xml',
         'views/mrp_bom_views.xml',
+        'views/mrp_prediction_views.xml',
         'views/mrp_production_views.xml',
         'views/mrp_routing_views.xml',
         'views/product_views.xml',
