@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_develop_tree_view" model="ir.ui.view">
+        <field name="name">mrp.develop.tree</field>
+        <field name="model">mrp.develop</field>
+        <field name="arch" type="xml">
+            <tree string="Develop" multi_edit="1" sample="1">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="category"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_develop_form_view" model="ir.ui.view">
+        <field name="name">mrp.develop.form</field>
+        <field name="model">mrp.develop</field>
+        <field name="arch" type="xml">
+            <form string="Develop">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="category"/>
+                        <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_develop_kanban_view" model="ir.ui.view" >
+            <field name="name">mrp.develop.kanban</field>
+            <field name="model">mrp.develop</field>
+            <field name="arch" type="xml">
+                <!-- <kanban class="o_kanban_mobile" sample="1"> -->
+                <kanban default_group_by="status" class="o_kanban_small_column o_kanban_project_tasks"  
+                on_create="quick_create" quick_create_view="project.quick_create_task_form" 
+                group_create="true" group_delete="true" group_edit="true"
+                records_draggable="true" examples="project" js_class="project_task_kanban" sample="1">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="created_by"/>
+                    <field name="status"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings mt4 ms-1">
+                                        <strong class="o_kanban_record_title"><span><t t-esc="record.name.value"/></span></strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left text-muted">
+                                        <span><t t-esc="record.description.value"/></span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <span t-attf-class="badge #{['idea'].indexOf(record.status.raw_value) &gt; -1 ? 'bg-200' : ['inprogress'].indexOf(record.status.raw_value) &gt; -1 ? 'bg-warning text-dark' : ['done'].indexOf(record.status.raw_value) &gt; -1 ? 'bg-success' : 'bg-primary'}"><t t-esc="record.status.value"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mrp_develop">
+        <field name="name">Develop</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.develop</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <!-- <field name="context">{'group_by': 'status'}</field> -->
+    </record>
+
+    <menuitem id="menu_mrp_develop"
+          name="Develop"
+          parent="mrp_planning_menu_root"
+          action="mrp_develop"/>
+</odoo>
