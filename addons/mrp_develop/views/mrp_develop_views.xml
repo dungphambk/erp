@@ -76,6 +76,6 @@
 
     <menuitem id="menu_mrp_develop"
           name="Develop"
-          parent="mrp_planning_menu_root"
+          parent="mrp.mrp_planning_menu_root"
           action="mrp_develop"/>
 </odoo>

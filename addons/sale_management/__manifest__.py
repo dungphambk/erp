@@ -59,6 +59,7 @@ The Dashboard for the Sales Manager will include
         'data/sale_order_template_demo.xml',
     ],
     'application': True,
+    'auto_install': True,
     'uninstall_hook': 'uninstall_hook',
     'post_init_hook': 'post_init_hook',
     'assets': {

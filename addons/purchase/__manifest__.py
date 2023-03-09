@@ -36,6 +36,7 @@
     ],
     'installable': True,
     'application': True,
+    'auto_install': True,
     'assets': {
         'web.assets_backend': [
             'purchase/static/src/toaster_button/*',

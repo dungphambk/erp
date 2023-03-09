@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_eoq_poq_mrp_eoq_poq,mrp_eoq_poq.mrp_eoq_poq,model_mrp_eoq_poq_mrp_eoq_poq,base.group_user,1,1,1,1
