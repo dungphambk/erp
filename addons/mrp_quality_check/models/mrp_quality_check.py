@@ -20,7 +20,7 @@ class MrpQualityCheck(models.Model):
         ("pass", "Pass"),
         ("fail", "Fail"),
     ], string="State", default="draft")
-    warning = fields.Char(string = "Please check the Quality Control first")
+    warning = fields.Char(string = "warning")
 
     def action_confirm(self):
         return self.write({'state': 'inprogress'})

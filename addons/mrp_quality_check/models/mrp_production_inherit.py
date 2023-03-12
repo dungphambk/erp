@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, tools
+from odoo.exceptions import UserError
 
 class MrpProductionInherit(models.Model):
     _inherit = 'mrp.production'
@@ -13,13 +14,6 @@ class MrpProductionInherit(models.Model):
         ])
         if sale_lines: pass
         else:
-            return {
-                'name': "Quality Control Required",
-                'view_mode': 'form',
-                'res_model': 'mrp.quality.check',
-                'view_id': self.env.ref('mrp_quality_check.mrp_quality_check_warning_form_view').id,
-                'type': 'ir.actions.act_window',
-                'target': 'new',
-            }
+            raise UserError('Please check the Quality Control for this order first')
         res = super(MrpProductionInherit, self).button_mark_done()
         return res

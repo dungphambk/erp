@@ -5,9 +5,9 @@
         <field name="model">mrp.quality.check</field>
         <field name="arch" type="xml">
             <tree string="Quality Check" multi_edit="1" sample="1">
-                <field name="name"/>
-                <field name="description"/>
+                <field name="name" optional = "hide"/>
                 <field name="order_id"/>
+                <field name="description"/>
                 <field name="user_id"/>
                 <field name="create_date"/>
                 <field name="state" 
@@ -59,17 +59,6 @@
             </form>
         </field>
     </record>
-
-    <record id="mrp_quality_check_warning_form_view" model="ir.ui.view">
-            <field name="name">mrp.quality.check.warning.form</field>
-            <field name="model">mrp.quality.check</field>
-            <field name="arch" type="xml">
-                <form string="Quality Control Required">
-                    <label for="warning" string="Please recheck the Quality Control for this order"/>
-                    <field name="warning" widget="text" invisible="1"/>
-                </form>
-            </field>
-        </record>
 
     <record model="ir.actions.act_window" id="mrp_quality_check">
         <field name="name">Quality Check</field>
