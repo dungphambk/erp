@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_quality_check_tree_view" model="ir.ui.view">
+        <field name="name">mrp.quality.check.tree</field>
+        <field name="model">mrp.quality.check</field>
+        <field name="arch" type="xml">
+            <tree string="Quality Check" multi_edit="1" sample="1">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="order_id"/>
+                <field name="user_id"/>
+                <field name="create_date"/>
+                <field name="state" 
+                decoration-success="state == 'pass'"
+                decoration-info="state in ['inprogress']"
+                decoration-muted="state in ['draft']"
+                decoration-warning="state == 'fail'"
+                widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_quality_check_form_view" model="ir.ui.view">
+        <field name="name">mrp.quality.check.form</field>
+        <field name="model">mrp.quality.check</field>
+        <field name="arch" type="xml">
+            <form string="Quality Check">
+            <header>
+                <!-- <field name="authorized_transaction_ids" invisible="1"/>
+                <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                    string="Confirm" class="btn-primary" type="object"
+                    attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>
+                <button name="action_confirm" data-hotkey="v"
+                    string="Confirm" type="object"
+                    attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                <button name="action_quotation_send" type="object" string="Send PRO-FORMA Invoice" groups="sale.group_proforma_sales" attrs="{'invisible': ['|', ('state', '=', 'draft'), ('invoice_count','&gt;=',1)]}" context="{'proforma': True}"/>
+                <button name="action_quotation_send" string="Send by Email" type="object" states="sent,sale" data-hotkey="g"/>
+                <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z"/>
+                <button name="action_draft" states="cancel" type="object" string="Set to Quotation" data-hotkey="w"/>
+                <button name="%(sale.import_from_ocr_wizard)d" type="action" string="OCR" states ="draft"/> -->
+                <button name="action_confirm" type = "object" string ="Confirm" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                <button name="action_pass" type="object" string="Pass" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress', 'fail'])]}"/>
+                <button name="action_fail" type="object" string="Fail" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress', 'pass'])]}"/>
+                <field name="state" widget="statusbar"/>
+            </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="image"/>
+                        </group>
+                        <group>
+                            <field name="order_id"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mrp_quality_check">
+        <field name="name">Quality Check</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.quality.check</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_mrp_quality_check"
+          name="Quality Check"
+          parent="mrp.menu_mrp_manufacturing"
+          action="mrp_quality_check"/>
+</odoo>

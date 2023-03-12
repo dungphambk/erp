@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "mrp_prediction",
+    'name': "mrp_quality_check",
 
     'summary': """
-        Prediction""",
+        Quality Check""",
 
     'description': """
-        Prediction
+        Quality Check
     """,
 
     'author': "My Company",
@@ -23,8 +23,8 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
-        'views/mrp_prediction_views.xml',
+        'security/ir.model.access.csv',
+        'views/mrp_quality_check_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
