@@ -39,8 +39,8 @@
                 <button name="action_draft" states="cancel" type="object" string="Set to Quotation" data-hotkey="w"/>
                 <button name="%(sale.import_from_ocr_wizard)d" type="action" string="OCR" states ="draft"/> -->
                 <button name="action_confirm" type = "object" string ="Confirm" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
-                <button name="action_pass" type="object" string="Pass" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress', 'fail'])]}"/>
-                <button name="action_fail" type="object" string="Fail" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress', 'pass'])]}"/>
+                <button name="action_pass" type="object" string="Pass" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress'])]}"/>
+                <button name="action_fail" type="object" string="Fail" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress'])]}"/>
                 <field name="state" widget="statusbar"/>
             </header>
                 <sheet>
@@ -59,6 +59,17 @@
             </form>
         </field>
     </record>
+
+    <record id="mrp_quality_check_warning_form_view" model="ir.ui.view">
+            <field name="name">mrp.quality.check.warning.form</field>
+            <field name="model">mrp.quality.check</field>
+            <field name="arch" type="xml">
+                <form string="Quality Control Required">
+                    <label for="warning" string="Please recheck the Quality Control for this order"/>
+                    <field name="warning" widget="text" invisible="1"/>
+                </form>
+            </field>
+        </record>
 
     <record model="ir.actions.act_window" id="mrp_quality_check">
         <field name="name">Quality Check</field>
