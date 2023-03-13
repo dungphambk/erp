@@ -13,7 +13,7 @@
                 <field name="name" string="Product Name"/>
                 <field name="default_code" optional="show"/>
                 <field name="annual_demand" string ="Annual Demand"/>
-                <field name="setup_cost" string ="Setup Cost" attrs="{'editable': 'top'}"/>
+                <field name="setup_cost" string ="Order Cost" attrs="{'editable': 'top'}"/>
                 <field name="holding_cost" string ="Holding Cost" attrs="{'editable': 'top'}"/>
                 <field name="economic_order_quantity" string ="Economic Order Quantity"/>
                 <!-- <field name="next_month_requirement" string ="Next Month Requirement"/>

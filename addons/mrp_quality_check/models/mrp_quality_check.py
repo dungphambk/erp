@@ -8,7 +8,7 @@ class MrpQualityCheck(models.Model):
     _description = "Quality Check"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char(string="Reference", default=lambda self: _('New'))
+    name = fields.Char(string="Reference")
     description = fields.Text(string="Description")
     order_id = fields.Many2one('mrp.production', string="Manufacturing Order", domain="[('state','in', ('confirmed', 'progress', 'to_close'))]")
     user_id = fields.Many2one('res.users', string="Responsible", default=lambda self: self.env.user)
