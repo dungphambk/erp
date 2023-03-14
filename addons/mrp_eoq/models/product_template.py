@@ -1,15 +1,16 @@
 from odoo import models, fields
 from datetime import datetime, timedelta
 from math import sqrt
+import random
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     annual_demand = fields.Float(string='Annual Demand', compute='_compute_annual_demand', store=False)
 
-    setup_cost = fields.Float(string='Setup Cost', default = '1.0')
+    setup_cost = fields.Float(string='Setup Cost', default = random.randint(50,300))
 
-    holding_cost = fields.Float(string='Holding Cost', default = '1.0')
+    holding_cost = fields.Float(string='Holding Cost', default = random.randint(1,15))
 
     economic_order_quantity = fields.Float(string='Economic Order Quantity', compute='_compute_economic_order_quantity', store=False)
 
