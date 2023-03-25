@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_line_tree_view" model="ir.ui.view">
+        <field name="name">mrp.production.line.tree</field>
+        <field name="model">mrp.production.line</field>
+        <field name="arch" type="xml">
+            <tree string="Production Line" multi_edit="1" sample="1">
+                <field name="name" optional = "hide"/>
+                <field name="order_id"/>
+                <field name="description"/>
+                <field name="manager_id"/>
+                <field name="start_date"/>
+                <field name="state" 
+                decoration-success="state == 'available'"
+                decoration-info="state in ['inprogress']"
+                decoration-muted="state in ['closed']"
+                widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_production_line_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.line.form</field>
+        <field name="model">mrp.production.line</field>
+        <field name="arch" type="xml">
+            <form string="Production Line">
+            <header>
+                <button name="action_done" type = "object" string ="Done" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress'])]}"/>
+                <button name="action_assign_task" type="object" string="Assign Task" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['available'])]}"/>
+                <button name="action_cancel_task" type="object" string="Fail" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress'])]}"/>
+                <field name="state" widget="statusbar"/>
+            </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="order_id"/>
+                            <field name="manager_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mrp_production_line">
+        <field name="name">Production Line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.production.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_mrp_production_line"
+          name="Production Line"
+          parent="mrp.menu_mrp_manufacturing"
+          action="mrp_production_line"/>
+</odoo>

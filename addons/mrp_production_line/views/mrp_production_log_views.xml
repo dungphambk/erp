@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_production_log_tree_view" model="ir.ui.view">
+        <field name="name">mrp.production.log.tree</field>
+        <field name="model">mrp.production.log</field>
+        <field name="arch" type="xml">
+            <tree string="Production Log" multi_edit="1" sample="1">
+                <field name="order_id"/>
+                <field name="start_date"/>
+                <field name="finish_date"/>
+                <field name="state" 
+                decoration-success="state == 'done'"
+                decoration-info="state in ['inprogress']"
+                decoration-muted="state in ['cancel']"
+                widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mrp_production_log">
+        <field name="name">Production Log</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.production.log</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="menu_mrp_production_log"
+          name="Production Log"
+          parent="mrp.menu_mrp_manufacturing"
+          action="mrp_production_log"/>
+</odoo>
