@@ -27,7 +27,9 @@
             <header>
                 <button name="action_done" type = "object" string ="Done" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress'])]}"/>
                 <button name="action_assign_task" type="object" string="Assign Task" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['available'])]}"/>
-                <button name="action_cancel_task" type="object" string="Fail" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress'])]}"/>
+                <button name="action_cancel_task" type="object" string="Cancel Task" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['inprogress'])]}"/>
+                <button name="action_close_line" type="object" string="Close Line" attrs="{'invisible': [('state', 'in', ['closed'])]}"/>
+                <button name="action_reopen_line" type="object" string="Reopen Line" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['closed'])]}"/>
                 <field name="state" widget="statusbar"/>
             </header>
                 <sheet>

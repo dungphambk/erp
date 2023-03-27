@@ -56,4 +56,14 @@ class MrpProductionLine(models.Model):
         ])
         log.write({'finish_date': fields.Datetime.now(), 'state': 'cancel'})
         return self.write({'state': 'available', 'order_id': None, 'start_date': None})
+    
+    def action_close_line(self):
+        log = self.env['mrp.production.log'].search([
+            ('order_id', '=', self.order_id.id),
+            ('state','=','inprogress'),
+        ])
+        log.write({'state': 'cancel'})
+        return self.write({'state': 'closed', 'order_id': None, 'start_date': None})
 
+    def action_reopen_line(self):
+        return self.write({'state': 'available', 'order_id': None, 'start_date': None})
