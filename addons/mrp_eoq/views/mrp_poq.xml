@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="mrp_eoq_tree_view" model="ir.ui.view">
-        <field name="name">mrp.eoq.tree</field>
+    <record id="mrp_poq_tree_view" model="ir.ui.view">
+        <field name="name">mrp.poq.tree</field>
         <field name="model">product.template</field>
         <field name="arch" type="xml">
-            <tree string="Economic Order Quantity" multi_edit="1" sample="1" create="false" editable="top">
+            <tree string="Production Order Quantity" multi_edit="1" sample="1" create="false" editable="top">
                 <field name="product_variant_count" invisible="1"/>
                 <field name="sale_ok" invisible="1"/>
                 <field name="currency_id" invisible="1"/>
@@ -15,7 +15,9 @@
                 <field name="annual_demand" string ="Annual Demand"/>
                 <field name="setup_cost" string ="Order Cost" attrs="{'editable': 'top'}"/>
                 <field name="holding_cost" string ="Holding Cost" attrs="{'editable': 'top'}"/>
-                <field name="economic_order_quantity" string ="Economic Order Quantity"/>
+                <field name="daily_production_rate" string ="Daily Production Rate" attrs="{'editable': 'top'}"/>
+                <field name="daily_demand_rate" string ="Daily Demand Rate" attrs="{'editable': 'top'}"/>
+                <field name="production_order_quantity" string ="Production Order Quantity"/>
                 <field name="product_tag_ids" invisible="1"/>
                 <field name="barcode" optional="hide" attrs="{'readonly': [('product_variant_count', '>', 1)]}"/>
                 <field name="company_id" invisible="1"/>
@@ -31,16 +33,16 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="mrp_eoq">
-        <field name="name">Economic Order Quantity</field>
+    <record model="ir.actions.act_window" id="mrp_poq">
+        <field name="name">Production Order Quantity</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref = "mrp_eoq_tree_view"/>
+        <field name="view_id" ref = "mrp_poq_tree_view"/>
     </record>
 
-    <menuitem id="menu_mrp_eoq"
-          name="Economic Order Quantity"
+    <menuitem id="menu_mrp_poq"
+          name="Production Order Quantity"
           parent="mrp.mrp_planning_menu_root"
-          action="mrp_eoq"/>
+          action="mrp_poq"/>
 </odoo>

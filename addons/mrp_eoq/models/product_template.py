@@ -26,6 +26,6 @@ class ProductTemplate(models.Model):
     
     def _compute_economic_order_quantity(self):
         for product_template in self:
-            if (product_template.holding_cost >0):
+            if (product_template.holding_cost >0 and product_template.daily_production_rate == 0):
                 product_template.economic_order_quantity = sqrt((2 * product_template.annual_demand * product_template.setup_cost) / product_template.holding_cost)
             else: product_template.economic_order_quantity = 0

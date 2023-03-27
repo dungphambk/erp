@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Economic Order Quantity",
+    'name': "Economic Order Quantity / Production Order Quantity",
 
     'summary': """
-        EOQ""",
+        EOQ / POQ""",
 
     'description': """
-        Calculate EOQ
+        Calculate EOQ / POQ
     """,
 
-    'author': "My Company",
-    'website': "https://www.yourcompany.com",
+    'author': "Dung Pham",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/16.0/odoo/addons/base/data/ir_module_category_data.xml
@@ -25,6 +24,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         'views/mrp_eoq.xml',
+        'views/mrp_poq.xml',
         'views/purchase_views.xml',
     ],
     # only loaded in demonstration mode

@@ -10,5 +10,4 @@ class PurchaseOrderLine(models.Model):
             eoq = self.env['product.template'].search([
                 ('id', '=', line.product_id.product_tmpl_id.id)
             ])
-            print ('product_temple:', eoq)
             line.economic_order_quantity = eoq.economic_order_quantity
