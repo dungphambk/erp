@@ -14,6 +14,6 @@ class MrpProductionInherit(models.Model):
         ])
         if sale_lines: pass
         else:
-            raise UserError('Please check the Quality Control for this order first')
+            raise UserError('The Quality Control for this order has not been satisfied. Please check again')
         res = super(MrpProductionInherit, self).button_mark_done()
         return res

@@ -34,7 +34,7 @@ class MrpProductionLine(models.Model):
             ('state', '=', 'done'),
         ])
         if log_done:
-            raise UserError('This order is already done')
+            raise UserError('This order has already been produced')
         log_inprogress = self.env['mrp.production.log'].search([
             ('order_id', '=', self.order_id.id),
             ('state', '=', 'inprogress'),

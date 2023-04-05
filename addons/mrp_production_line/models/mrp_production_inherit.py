@@ -16,6 +16,6 @@ class MrpProductionInherit(models.Model):
         ])
         if log: pass
         else:
-            raise UserError('This order has not been produced')
+            raise UserError('This order has not been produced, please check the Production Log for this order.')
         res = super(MrpProductionInherit, self).button_mark_done()
         return res
