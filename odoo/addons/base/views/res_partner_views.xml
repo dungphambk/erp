@@ -444,7 +444,7 @@
             <field name="name">res.partner.kanban</field>
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
-                <kanban class="o_res_partner_kanban" sample="1">
+                <kanban class="o_res_partner_kanban" sample="1" domain="[('company_id', '=', user.company_id.id)]">
                     <field name="id"/>
                     <field name="color"/>
                     <field name="display_name"/>
