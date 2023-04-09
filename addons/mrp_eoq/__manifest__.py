@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Economic Order Quantity / Production Order Quantity",
+    'name': "Economic Order Quantity / Production Order Quantity / Discount Quantity Model",
 
     'summary': """
-        EOQ / POQ""",
+        EOQ / POQ / Discount Quantity Model""",
 
     'description': """
-        Calculate EOQ / POQ
+        Calculate EOQ / POQ / Discount Quantity Model
     """,
 
     'author': "Dung Pham",
@@ -18,13 +18,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'product', 'mrp', 'purchase'],
+    'depends': ['base', 'product', 'mrp', 'purchase', 'sale', 'stock'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
         'views/mrp_eoq.xml',
         'views/mrp_poq.xml',
+        'views/mrp_discount.xml',
         'views/purchase_views.xml',
     ],
     # only loaded in demonstration mode
