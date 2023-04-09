@@ -51,8 +51,9 @@
                             <field name="image"/>
                         </group>
                         <group>
-                            <field name="order_id"/>
-                            <field name="user_id"/>
+                            <field name="order_id" domain="[('company_id', '=', company_id)]"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="user_id" domain="[('company_id', '=', company_id)]"/>
                         </group>
                     </group>
                 </sheet>
@@ -65,6 +66,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">mrp.quality.check</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('related_field', '=', True)]</field>
+        <field name="context">{}</field>
     </record>
 
     <menuitem id="menu_mrp_quality_check"

@@ -5,9 +5,10 @@
         <field name="model">mrp.production.log</field>
         <field name="arch" type="xml">
             <tree string="Production Log" multi_edit="1" sample="1">
-                <field name="order_id"/>
+                <field name="order_id" domain="[('company_id', '=', company_id)]"/>
                 <field name="start_date"/>
                 <field name="finish_date"/>
+                <field name="company_id" invisible="1"/>
                 <field name="state" 
                 decoration-success="state == 'done'"
                 decoration-info="state in ['inprogress']"
@@ -22,6 +23,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">mrp.production.log</field>
         <field name="view_mode">tree</field>
+        <field name="domain">[('related_field', '=', True)]</field>
     </record>
 
     <menuitem id="menu_mrp_production_log"

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields, models, _
+from odoo import fields, models, api, _
 
 class MrpQualityCheck(models.Model):
     _name = "mrp.quality.check"
@@ -21,6 +21,23 @@ class MrpQualityCheck(models.Model):
         ("fail", "Fail"),
     ], string="State", default="draft")
     warning = fields.Char(string = "warning")
+    company_id = fields.Many2one('res.company', string='Company', required=True, readonly=True,
+        default=lambda self: self.env.company)
+    is_our_company = fields.Boolean(string='Is Our Company', compute='_compute_is_our_company', store=False)
+    related_field = fields.Boolean(string='Related Field', related='is_our_company', store=True)
+    
+    def _compute_is_our_company(self):
+        user_company_id = self.env.user.company_id.id
+        print("1")
+        quality_check = self.env['mrp.quality.check'].search([])
+        for rec in quality_check:
+            if (rec.company_id):
+                if rec.company_id.id != user_company_id:
+                    rec.is_our_company = False
+                    rec.related_field = False
+                else:
+                    rec.is_our_company = True
+                    rec.related_field = True
 
     def action_confirm(self):
         return self.write({'state': 'inprogress'})
