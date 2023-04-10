@@ -22,6 +22,7 @@
 
     # always loaded
     'data': [
+        'views/is_our_company.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

@@ -7,8 +7,8 @@
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
                 <field name="product_qty" position="after">
-                    <field name="economic_order_quantity" string = "Economic Order Quantity" attrs="{'invisible': [('economic_order_quantity', '=', 0)]}"/>
-                    <field name="production_order_quantity" string = "Production Order Quantity" attrs="{'invisible': [('production_order_quantity', '=', 0)]}"/>
+                    <field name="optimal_amount" string = "Suggested Amount" attrs="{'invisible': [('optimal_amount', '=', 0)]}"/>
+                    <field name="optimal_price" string = "Suggested Price" attrs="{'invisible': [('optimal_price', '=', 0)]}"/>
                 </field>
             </field>
         </record>
