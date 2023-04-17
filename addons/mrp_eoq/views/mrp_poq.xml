@@ -44,5 +44,6 @@
     <menuitem id="menu_mrp_poq"
           name="Production Order Quantity"
           parent="mrp.mrp_planning_menu_root"
-          action="mrp_poq"/>
+          action="mrp_poq"
+          groups="mrp_eoq.group_eoq_access"/>
 </odoo>

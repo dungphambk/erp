@@ -39,8 +39,13 @@
         <field name="view_id" ref = "mrp_eoq_tree_view"/>
     </record>
 
+    <record id="group_eoq_access" model="res.groups">
+        <field name="name">EOQ Acess</field>
+    </record>
+
     <menuitem id="menu_mrp_eoq"
           name="Economic Order Quantity"
           parent="mrp.mrp_planning_menu_root"
-          action="mrp_eoq"/>
+          action="mrp_eoq"
+          groups="mrp_eoq.group_eoq_access"/>
 </odoo>

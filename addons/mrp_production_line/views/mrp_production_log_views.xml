@@ -29,5 +29,6 @@
     <menuitem id="menu_mrp_production_log"
           name="Production Log"
           parent="mrp.menu_mrp_manufacturing"
-          action="mrp_production_log"/>
+          action="mrp_production_log"
+          groups="mrp_develop.group_operations_access"/>
 </odoo>

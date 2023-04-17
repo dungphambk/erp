@@ -73,5 +73,6 @@
     <menuitem id="menu_mrp_quality_check"
           name="Quality Check"
           parent="mrp.menu_mrp_manufacturing"
-          action="mrp_quality_check"/>
+          action="mrp_quality_check"
+          groups="mrp_develop.group_operations_access"/>
 </odoo>

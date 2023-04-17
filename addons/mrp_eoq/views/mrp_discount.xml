@@ -53,7 +53,8 @@
     <menuitem id="menu_mrp_discount"
           name="Quantity Discount Model"
           parent="mrp.mrp_planning_menu_root"
-          action="mrp_discount"/>
+          action="mrp_discount"
+          groups="mrp_eoq.group_eoq_access"/>
 </odoo>
 
 

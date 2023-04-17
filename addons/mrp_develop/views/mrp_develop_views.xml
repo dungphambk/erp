@@ -74,8 +74,13 @@
         <field name="domain">[('related_field', '=', True)]</field>
     </record>
 
+    <record id="group_operations_access" model="res.groups">
+        <field name="name">Operations Acess</field>
+    </record>
+
     <menuitem id="menu_mrp_develop"
           name="Develop"
           parent="mrp.mrp_planning_menu_root"
-          action="mrp_develop"/>
+          action="mrp_develop"
+          groups="mrp_develop.group_operations_access"/>
 </odoo>

@@ -61,5 +61,6 @@
     <menuitem id="menu_mrp_production_line"
           name="Production Line"
           parent="mrp.menu_mrp_manufacturing"
-          action="mrp_production_line"/>
+          action="mrp_production_line"
+          groups="mrp_develop.group_operations_access"/>
 </odoo>

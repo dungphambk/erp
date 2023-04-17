@@ -42,5 +42,6 @@
     <menuitem id="menu_mrp_prediction"
           name="Prediction"
           parent="mrp.mrp_planning_menu_root"
-          action="mrp_prediction"/>
+          action="mrp_prediction"
+          groups="mrp_develop.group_operations_access"/>
 </odoo>
