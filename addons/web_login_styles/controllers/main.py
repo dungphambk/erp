@@ -73,7 +73,7 @@ class Home(WebHome):
             except odoo.exceptions.AccessDenied as e:
                 request.uid = old_uid
                 if e.args == odoo.exceptions.AccessDenied().args:
-                    values['error'] = _("Wrong login/password")
+                    values['error'] = _("Wrong email/password")
                 else:
                     values['error'] = e.args[0]
         else:

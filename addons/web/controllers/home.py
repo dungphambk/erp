@@ -105,7 +105,7 @@ class Home(http.Controller):
                 return request.redirect(self._login_redirect(uid, redirect=redirect))
             except odoo.exceptions.AccessDenied as e:
                 if e.args == odoo.exceptions.AccessDenied().args:
-                    values['error'] = _("Wrong login/password")
+                    values['error'] = _("Wrong email/password")
                 else:
                     values['error'] = e.args[0]
         else:

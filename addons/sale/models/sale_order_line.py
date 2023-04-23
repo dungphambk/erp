@@ -257,6 +257,12 @@ class SaleOrderLine(models.Model):
     product_uom_readonly = fields.Boolean(
         compute='_compute_product_uom_readonly')
 
+    @api.constrains('product_uom_qty')
+    def _positive_field(self):
+        for record in self:
+            if record.product_uom_qty < 0.0:
+                raise UserError("Product quantity must be positive")
+
     #=== COMPUTE METHODS ===#
 
     @api.depends('product_id')
