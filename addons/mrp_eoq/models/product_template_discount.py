@@ -26,6 +26,26 @@ class ProductTemplate(models.Model):
     optimal_price = fields.Float(string='Optimal Price', compute='_compute_optimal_price', store=True)
     optimal_amount = fields.Float(string='Optimal Amount')
 
+    @api.constrains('setup_cost', 'holding_cost', 'daily_production_rate', 'daily_demand_rate')
+    def _positive_field_1(self):
+        for record in self:
+            if record.setup_cost < 0 or record.holding_cost < 0 or record.daily_production_rate < 0 or record.daily_demand_rate < 0:
+                raise UserError("Fields must be positive")
+
+    @api.constrains('price_1', 'price_2', 'price_3', 'minimum_amount_1', 'minimum_amount_2', 'minimum_amount_3')
+    def _positive_field_2(self):
+        for record in self:
+            if record.price_1 < 0 or record.price_2 < 0 or record.price_3 < 0 or record.minimum_amount_1 < 0 or record.minimum_amount_2 < 0 or record.minimum_amount_3 < 0:
+                raise UserError("Price and Amount must be positive")
+        
+    @api.constrains('list_price', 'standard_price')
+    def _positive_field_3(self):
+        for record in self:
+            if record.list_price < 0 :
+                raise UserError("Sale Price must be positive")
+            elif record.standard_price < 0:
+                raise UserError("Cost must be positive")
+
     @api.depends('price_1', 'minimum_amount_1', 'annual_demand', 'setup_cost', 'holding_cost')
     def _compute_total_cost_1(self):
         for product_template in self:
@@ -115,9 +135,3 @@ class ProductTemplate(models.Model):
                     product_template.lowest_cost = cost_2
                     product_template.optimal_price = product_template.price_2
                     product_template.optimal_amount = product_template.optimal_amount_2
-    
-    @api.constrains('price_1', 'price_2', 'price_3', 'minimum_amount_1', 'minimum_amount_2', 'minimum_amount_3')
-    def _positive_field(self):
-        for record in self:
-            if record.price_1 < 0 or record.price_2 < 0 or record.price_3 < 0 or record.minimum_amount_1 < 0 or record.minimum_amount_2 < 0 or record.minimum_amount_3 < 0:
-                raise UserError("Price and Amount must be positive")
