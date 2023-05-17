@@ -9,6 +9,7 @@
         'views/barcodes_view.xml',
         'security/ir.model.access.csv',
         ],
+    'auto_install': True,
     'installable': True,
     'post_init_hook': '_assign_default_nomeclature_id',
     'assets': {

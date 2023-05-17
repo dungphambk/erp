@@ -22,20 +22,19 @@
 ###################################################################################
 
 {
-    'name': 'Website Return Order Management',
-    'summary': 'Sale Order Return Management from Website',
+    'name': 'Return Order Management',
+    'summary': 'Sale Order Return Management',
     'version': '16.0.1.0.0',
-    'description': """Website Return Order Management, Website Return, Order Return, RMA, Website RMA""",
+    'description': """Return Order Management""",
     'author': 'Cybrosys Techno Solutions',
     'maintainer': 'Cybrosys Techno Solutions',
     'company': 'Cybrosys Techno Solutions',
     'website': 'https://www.cybrosys.com',
-    'category': 'Website',
-    'depends': ['website_sale', 'stock', 'sale_management'],
+    'category': 'Sale',
+    'depends': ['stock', 'sale_management'],
     'data': [
         'security/ir.model.access.csv',
         'data/ir_sequence.xml',
-        'views/website_thankyou_template.xml',
         'views/sale_return.xml',
         'views/sale_order.xml',
         'views/res_partner.xml',

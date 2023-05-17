@@ -39,6 +39,7 @@
     ],
     'installable': True,
     'application': True,
+    'auto_install': True,
     'assets': {
         'web.assets_backend': [
             'hr_recruitment/static/src/**/*.js',

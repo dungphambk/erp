@@ -10,6 +10,7 @@
         'data/barcodes_gs1_rules.xml',
         'views/barcodes_view.xml',
     ],
+    'auto_install': True,
     'installable': True,
     'assets': {
         'web.assets_backend': [

@@ -47,6 +47,7 @@
     ],
     'installable': True,
     'application': True,
+    'auto_install': True,
     'post_init_hook': '_install_hr_localization',
     'assets': {
         'mail.assets_messaging': [
