@@ -28,5 +28,6 @@ associated to every resource. It also manages the leaves of every resource.
             'resource/static/tests/components/*.js',
         ],
     },
+    'auto_install': True,
     'license': 'LGPL-3',
 }
