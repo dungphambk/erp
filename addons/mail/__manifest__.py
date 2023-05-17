@@ -113,6 +113,7 @@ For more specific needs, you may also assign custom-defined actions
     ],
     'installable': True,
     'application': True,
+    'auto_install': True,
     'assets': {
         'mail.assets_core_messaging': [
             'mail/static/src/model/*.js',
