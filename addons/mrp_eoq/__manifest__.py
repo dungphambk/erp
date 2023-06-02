@@ -18,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'product', 'mrp', 'purchase', 'sale', 'stock'],
+    'depends': ['base', 'product', 'mrp', 'purchase', 'sale', 'stock', 'mrp_planning_package'],
 
     # always loaded
     'data': [
@@ -34,6 +34,6 @@
     ],
     'installable': True,
     'application': True,
-    'auto_install': False,
+    'auto_install': True,
     'license': 'LGPL-3',
 }
