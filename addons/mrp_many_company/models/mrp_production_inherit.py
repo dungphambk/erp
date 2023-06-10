@@ -33,6 +33,13 @@ class MrpProductionInherit(models.Model):
             else:
                 rec.related_field = True
         
+        ret = self.env['sale.return'].search([])
+        for rec in ret:
+            if rec.company_id.id != user_company_id:
+                rec.related_field = False
+            else:
+                rec.related_field = True
+        
         quality_check = self.env['mrp.quality.check'].search([])
         for rec in quality_check:
             if (rec.company_id):

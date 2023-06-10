@@ -65,6 +65,10 @@ class ReturnOrder(models.Model):
     to_refund = fields.Boolean(string='Update SO/PO Quantity',
                                           help='Trigger a decrease of the delivered/received quantity in'
                                                ' the associated Sale Order/Purchase Order')
+    company_id = fields.Many2one('res.company', string='Company', required=True, readonly=True,
+        default=lambda self: self.env.company)
+    related_field = fields.Boolean(string='Related Field', store=True, default=True)
+
 
     def return_confirm(self):
         """Confirm the sale return"""
