@@ -16,6 +16,10 @@
                 <field name="setup_cost" string ="Order Cost" attrs="{'editable': 'top'}"/>
                 <field name="holding_cost" string ="Holding Cost" attrs="{'editable': 'top'}"/>
                 <field name="economic_order_quantity" string ="Economic Order Quantity"/>
+                <field name="total" string ="Total Cost"/>
+                <field name="setup" string ="Total Setup Cost" optional="hide"/>
+                <field name="holding" string ="Total Holding Cost" optional="hide"/>
+                <field name="purchase" string ="Total Purchase Cost" optional="hide"/>
                 <field name="product_tag_ids" invisible="1"/>
                 <field name="barcode" optional="hide" attrs="{'readonly': [('product_variant_count', '>', 1)]}"/>
                 <field name="company_id" invisible="1"/>

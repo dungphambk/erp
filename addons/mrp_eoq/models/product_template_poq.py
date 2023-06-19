@@ -1,6 +1,6 @@
 from odoo import api, models, fields
 from datetime import datetime, timedelta
-from math import sqrt
+import math
 from odoo.exceptions import UserError
 
 
@@ -36,6 +36,19 @@ class ProductTemplate(models.Model):
 
     def _compute_production_order_quantity(self):
         for product_template in self:
+            product_template.setup = 0
+            product_template.holding = 0
+            product_template.purchase = 0
+            product_template.total = 0
             if (product_template.holding_cost >0 and product_template.daily_production_rate > product_template.daily_demand_rate):
-                product_template.production_order_quantity = sqrt((2 * product_template.annual_demand * product_template.setup_cost) / product_template.holding_cost * (product_template.daily_production_rate / (product_template.daily_production_rate - product_template.daily_demand_rate)))
-            else: product_template.production_order_quantity = 0
+                annual_demand = product_template.annual_demand
+                setup_cost = product_template.setup_cost
+                holding_cost = product_template.holding_cost
+                product_template.production_order_quantity = math.ceil(math.sqrt((2 * product_template.annual_demand * product_template.setup_cost) / product_template.holding_cost * (product_template.daily_production_rate / (product_template.daily_production_rate - product_template.daily_demand_rate))))
+                if product_template.production_order_quantity > 0: product_template.setup = annual_demand * setup_cost / product_template.production_order_quantity
+                product_template.holding = product_template.production_order_quantity * holding_cost / 2
+                product_template.purchase = product_template.list_price * annual_demand
+                product_template.total = product_template.setup + product_template.holding + product_template.purchase
+            else: 
+                product_template.production_order_quantity = 0
+                

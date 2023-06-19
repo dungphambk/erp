@@ -18,6 +18,10 @@
                 <field name="daily_production_rate" string ="Daily Production Rate" attrs="{'editable': 'top'}"/>
                 <field name="daily_demand_rate" string ="Daily Demand Rate" attrs="{'editable': 'top'}"/>
                 <field name="production_order_quantity" string ="Production Order Quantity"/>
+                <field name="total" string ="Total Cost"/>
+                <field name="setup" string ="Total Setup Cost" optional="hide"/>
+                <field name="holding" string ="Total Holding Cost" optional="hide"/>
+                <field name="purchase" string ="Total Purchase Cost" optional="hide"/>
                 <field name="product_tag_ids" invisible="1"/>
                 <field name="barcode" optional="hide" attrs="{'readonly': [('product_variant_count', '>', 1)]}"/>
                 <field name="company_id" invisible="1"/>
